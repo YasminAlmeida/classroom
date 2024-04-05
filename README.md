@@ -1,4 +1,4 @@
-# classroom - Sistema de Gerenciamento de Sala de Aula
+# classroom - Classroom Management System
 
 <h2> Spring Boot "Microservice" Project</h2>
 
