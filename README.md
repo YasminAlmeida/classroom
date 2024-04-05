@@ -220,3 +220,10 @@ Content-Type: application/json
 }
 ```
 RESPONSE: HTTP 204 (No Content)
+
+---------------------------------------
+
+UML Diagram
+
+![uml](https://github.com/YasminAlmeida/classroom/assets/100879182/2bd4a521-2402-40d4-8733-70c9baeb8644)
+
