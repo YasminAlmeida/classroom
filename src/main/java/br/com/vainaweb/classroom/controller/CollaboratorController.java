@@ -1,6 +1,6 @@
 package br.com.vainaweb.classroom.controller;
 
-import br.com.vainaweb.classroom.dtos.CollaboratorData;
+import br.com.vainaweb.classroom.dtos.CollaboratorDTO;
 import br.com.vainaweb.classroom.model.Collaborator;
 import br.com.vainaweb.classroom.service.CollaboratorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +29,14 @@ public class CollaboratorController {
     }
 
     @PostMapping // HTTP POST
-    public ResponseEntity<List<Collaborator>> registerCollaborator(@RequestBody List<CollaboratorData> collaboratorDataList) {
-        List<Collaborator> createdCollaborators = collaboratorService.register(collaboratorDataList);
+    public ResponseEntity<List<Collaborator>> registerCollaborator(@RequestBody List<CollaboratorDTO> collaboratorDTOList) {
+        List<Collaborator> createdCollaborators = collaboratorService.register(collaboratorDTOList);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCollaborators);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateCollaborator(@PathVariable Long id, @RequestBody CollaboratorData collaboratorData) {
-        collaboratorService.update(id, collaboratorData);
+    public ResponseEntity<String> updateCollaborator(@PathVariable Long id, @RequestBody CollaboratorDTO collaboratorDTO) {
+        collaboratorService.update(id, collaboratorDTO);
         return ResponseEntity.status(HttpStatus.OK).body("Success: The HTTP PUT request was processed successfully.");
     }
 

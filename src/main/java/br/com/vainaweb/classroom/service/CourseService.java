@@ -1,6 +1,6 @@
 package br.com.vainaweb.classroom.service;
 
-import br.com.vainaweb.classroom.dtos.CourseData;
+import br.com.vainaweb.classroom.dtos.CourseDTO;
 import br.com.vainaweb.classroom.model.Collaborator;
 import br.com.vainaweb.classroom.model.Course;
 import br.com.vainaweb.classroom.model.Student;
@@ -24,7 +24,7 @@ public class CourseService {
     @Autowired
     private CollaboratorRepository collaboratorRepository;
 
-    public List<Course> register(List<CourseData> courseData) {
+    public List<Course> register(List<CourseDTO> courseData) {
         List<Course> courses = courseData.stream().map(data -> {
             Collaborator collaborator = collaboratorRepository.findById(data.collaborator().getId())
                     .orElseThrow(() -> new EntityNotFoundException("Collaborator not found"));
@@ -37,20 +37,20 @@ public class CourseService {
         return courseRepository.saveAll(courses);
     }
 
-    public void update(Long courseId, CourseData courseData) {
+    public void update(Long courseId, CourseDTO courseDTO) {
         Course course = courseRepository.findById(courseId).orElseThrow(() -> new EntityNotFoundException("Course not found"));
 
-        course.setName(courseData.name());
-        course.setDescription(courseData.description());
+        course.setName(courseDTO.name());
+        course.setDescription(courseDTO.description());
 
-        if (courseData.collaborator() != null) {
-            Collaborator collaborator = collaboratorRepository.findById(courseData.collaborator().getId())
+        if (courseDTO.collaborator() != null) {
+            Collaborator collaborator = collaboratorRepository.findById(courseDTO.collaborator().getId())
                     .orElseThrow(() -> new EntityNotFoundException("Collaborator not found"));
             course.setCollaborator(collaborator);
         }
 
-        if (courseData.students() != null && !courseData.students().isEmpty()) {
-            List<Student> students = studentRepository.findAllById(courseData.students().stream().map(Student::getId).collect(Collectors.toList()));
+        if (courseDTO.students() != null && !courseDTO.students().isEmpty()) {
+            List<Student> students = studentRepository.findAllById(courseDTO.students().stream().map(Student::getId).collect(Collectors.toList()));
             course.setStudents(students);
         }
 

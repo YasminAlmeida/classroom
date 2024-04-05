@@ -5,7 +5,7 @@ import br.com.vainaweb.classroom.model.Student;
 
 import java.util.List;
 
-public record CourseData(
+public record CourseDTO(
         String name,
         String description,
         Collaborator collaborator,

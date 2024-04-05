@@ -4,7 +4,7 @@ import br.com.vainaweb.classroom.enums.Role;
 import br.com.vainaweb.classroom.model.Address;
 import jakarta.validation.Valid;
 
-public record CollaboratorData(
+public record CollaboratorDTO(
     String name,
     String cpf,
     String email,

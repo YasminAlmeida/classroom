@@ -1,6 +1,6 @@
 package br.com.vainaweb.classroom.service;
 
-import br.com.vainaweb.classroom.dtos.CollaboratorData;
+import br.com.vainaweb.classroom.dtos.CollaboratorDTO;
 import br.com.vainaweb.classroom.model.Address;
 import br.com.vainaweb.classroom.model.Collaborator;
 import br.com.vainaweb.classroom.repository.AddressRepository;
@@ -28,18 +28,20 @@ public class CollaboratorService {
         return collaboratorRepository.findById(id).orElseThrow();
     }
 
-    public List<Collaborator> register(List<CollaboratorData> data) {
+    public List<Collaborator> register(List<CollaboratorDTO> data) {
         List<Collaborator> collaborators = new ArrayList<>();
 
-        for (CollaboratorData collaboratorData : data) {
-            Address address = collaboratorData.address();
-            address = addressRepository.save(address);
+        for (CollaboratorDTO collaboratorDTO : data) {
+            Address address = collaboratorDTO.address();
+            if (address != null) {
+                address = addressRepository.save(address);
+            }
 
             Collaborator collaborator = new Collaborator(
-                    collaboratorData.name(),
-                    collaboratorData.cpf(),
-                    collaboratorData.email(),
-                    collaboratorData.role(),
+                    collaboratorDTO.name(),
+                    collaboratorDTO.cpf(),
+                    collaboratorDTO.email(),
+                    collaboratorDTO.role(),
                     address
             );
 
@@ -49,15 +51,15 @@ public class CollaboratorService {
         return collaboratorRepository.saveAll(collaborators);
     }
 
-    public void update(Long id, CollaboratorData collaboratorData) {
+    public void update(Long id, CollaboratorDTO collaboratorDTO) {
         Collaborator collaborator = collaboratorRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Collaborator not found"));
 
-        collaborator.setName(collaboratorData.name());
-        collaborator.setCpf(collaboratorData.cpf());
-        collaborator.setEmail(collaboratorData.email());
-        collaborator.setRole(collaboratorData.role());
-        collaborator.setAddress(collaboratorData.address());
+        collaborator.setName(collaboratorDTO.name());
+        collaborator.setCpf(collaboratorDTO.cpf());
+        collaborator.setEmail(collaboratorDTO.email());
+        collaborator.setRole(collaboratorDTO.role());
+        collaborator.setAddress(collaboratorDTO.address());
 
         collaboratorRepository.save(collaborator);
     }

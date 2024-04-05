@@ -1,6 +1,6 @@
 package br.com.vainaweb.classroom.controller;
 
-import br.com.vainaweb.classroom.dtos.StudentData;
+import br.com.vainaweb.classroom.dtos.StudentDTO;
 import br.com.vainaweb.classroom.model.Student;
 import br.com.vainaweb.classroom.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class StudentController {
     }
 
     @PostMapping //HTTP POST
-    public ResponseEntity<String> registerStudents(@RequestBody List<StudentData> students) {
+    public ResponseEntity<String> registerStudents(@RequestBody List<StudentDTO> students) {
         try {
             List<Student> createdStudents = studentService.register(students);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdStudents.toString());

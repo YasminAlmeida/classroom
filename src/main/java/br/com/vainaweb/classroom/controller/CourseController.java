@@ -1,6 +1,6 @@
 package br.com.vainaweb.classroom.controller;
 
-import br.com.vainaweb.classroom.dtos.CourseData;
+import br.com.vainaweb.classroom.dtos.CourseDTO;
 import br.com.vainaweb.classroom.model.Course;
 import br.com.vainaweb.classroom.service.CourseService;
 import jakarta.validation.Valid;
@@ -25,9 +25,9 @@ public class CourseController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateCourse(@PathVariable Long id, @RequestBody CourseData courseData) {
+    public ResponseEntity<String> updateCourse(@PathVariable Long id, @RequestBody CourseDTO courseDTO) {
         try {
-            courseService.update(id, courseData);
+            courseService.update(id, courseDTO);
             return ResponseEntity.ok("Success: Course has been updated successfully.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -36,7 +36,7 @@ public class CourseController {
     }
 
     @PostMapping
-    public ResponseEntity<String> registerCourse(@RequestBody @Valid List<CourseData> courseData) {
+    public ResponseEntity<String> registerCourse(@RequestBody @Valid List<CourseDTO> courseData) {
         try {
             List<Course> courses = courseService.register(courseData);
             return ResponseEntity.status(HttpStatus.CREATED)
